@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PrimaryButton from '../../Components/Button/PrimaryButton'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthProvider'
 import { toast } from 'react-hot-toast'
+import SmallSpinner from '../../Components/Spinner/SmallSpinner'
+import { setSAuthToken } from '../../api/Auth'
 
 const Login = () => {
-  const {signInWithGoogle, signin, loading, setLoading} = useContext(AuthContext)
-  
+   
+  const [userEmail, setUserEmail] = useState('')
+  const {signInWithGoogle, signin, loading, setLoading, resetPassword} = useContext(AuthContext)
  const navigate = useNavigate()
  const location = useLocation()
  const from = location.state?.from?.pathname || '/'
@@ -20,17 +23,35 @@ const Login = () => {
     signin(email, password)
     .then(res => {
       toast.success('LogIn Successfully')
+      setSAuthToken(res.user)
       navigate(from, {replace:true})
     })
     .catch(err => {
       toast.error('wrong password or email')
       console.log(err);
+      setLoading(false)
     })
    }
 
   const handleSignInGoogle = () => {
     signInWithGoogle()
-    .then(res => console.log(res.user))
+    
+    .then(res => {
+      setSAuthToken(res.user)
+      console.log(res.user)})
+  }
+
+  const handleResetPass = () => {
+    resetPassword(userEmail)
+    .then(() => {
+      toast.success('Please check your email for reset link')
+      setLoading(false)
+    })
+    .catch(err => {
+      toast.error('wrong password or email')
+      console.log(err);
+      setLoading(false)
+    })
   }
   return (
     <div className='flex justify-center items-center pt-8'>
@@ -52,6 +73,7 @@ const Login = () => {
                 Email address
               </label>
               <input
+              onBlur={(event) => setUserEmail(event.target.value)}
                 type='email'
                 name='email'
                 id='email'
@@ -83,12 +105,12 @@ const Login = () => {
               type='submit'
               classes='w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100'
             >
-              Sign in
+              {loading ? <SmallSpinner/> : 'Sign in'}
             </PrimaryButton>
           </div>
         </form>
         <div className='space-y-1'>
-          <button className='text-xs hover:underline text-gray-400'>
+          <button onClick={handleResetPass} className='text-xs hover:underline text-gray-400'>
             Forgot password?
           </button>
         </div>

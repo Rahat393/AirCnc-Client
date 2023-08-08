@@ -1,20 +1,29 @@
 import React, { useContext } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PrimaryButton from '../../Components/Button/PrimaryButton'
 import { AuthContext } from '../../contexts/AuthProvider'
 import { toast } from 'react-hot-toast'
+import SmallSpinner from '../../Components/Spinner/SmallSpinner'
+import { setSAuthToken } from '../../api/Auth'
 
 const Signup = () => {
+     
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
+
   const {createUser, updateUserProfile, verifyEmail, loading, setLoading, signInWithGoogle}
    = useContext(AuthContext);
    const handleSubmit = event => {
     event.preventDefault()
     const name = event.target.name.value;
-    const image = event.target.image.files[0];
+    
     const email = event.target.email.value;
     const password = event.target.password.value;
 
+    // image upload
+    const image = event.target.image.files[0];
     const formData = new FormData()
     formData.append('image', image)
 
@@ -28,25 +37,36 @@ const Signup = () => {
     .then(data => {
       createUser(email, password)
       .then(result =>{ 
+        setSAuthToken(result.user)
         updateUserProfile(name, data.data.display_Url)
         .then(
           verifyEmail().then(() => {
-            toast.success('Please check your email for verivication Link')
+            toast.success(
+              'Please check your email for verivication Link'
+            )
+            setLoading(false)
+            navigate(from, {replace:true})
           })
         )
-        console.log(result)
+         .catch(err => console.log(err))
       })
-      .catch(err => console.log(err))
-
-      console.log(data);  
+      .catch(err => {
+        toast.error(err.message)
+        setLoading(false)
+        // navigate('/')
+         })
+      
     })
-    .catch(err => console.log(err))
-   
+    .catch(err => {
+      console.log(err);
+      })
    }
 
    const handleSignInGoogle = () => {
     signInWithGoogle()
-    .then(res => console.log(res.user))
+    .then(res => {
+      setSAuthToken(res.user)
+      console.log(res.user)})
    }
   return (
     <div className='flex justify-center items-center pt-8'>
@@ -123,7 +143,7 @@ const Signup = () => {
                 type='submit'
                 classes='w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100'
               >
-                Sign up
+                {loading ? <SmallSpinner/> : 'Sign up'}
               </PrimaryButton>
             </div>
           </div>
