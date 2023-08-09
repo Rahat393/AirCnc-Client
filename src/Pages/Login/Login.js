@@ -35,7 +35,8 @@ const Login = () => {
 
   const handleSignInGoogle = () => {
     signInWithGoogle()
-    
+    navigate(from, {replace:true})
+
     .then(res => {
       setSAuthToken(res.user)
       console.log(res.user)})

@@ -9,7 +9,7 @@ import HomeCard from '../Components/Card/HomeCard'
     fetch('expdata.json')
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      // console.log(data);
       setAllExp(data)
     })
   },[])
