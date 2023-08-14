@@ -7,8 +7,10 @@ import {
 import PrimaryButton from "../Button/PrimaryButton";
 import { AuthContext } from "../../contexts/AuthProvider";
 import UserMenu from "./UserMenu";
+import AdminMenu from "./AdminMenu";
+import HostMenu from "./HostMenu";
 
-const Sidebar = () => {
+const Sidebar = ({ role }) => {
   const { user, logout } = useContext(AuthContext);
   const [isActive, setActive] = useState("false");
 
@@ -70,12 +72,11 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
-              {/* {role && role !== 'requested' ? (
-                <>{role === 'admin' ? <AdminMenu /> : <HostMenu />} </>
+              {role && role !== "requested" ? (
+                <>{role === "admin" ? <AdminMenu /> : <HostMenu />} </>
               ) : (
                 <UserMenu />
-              )} */}
-              <UserMenu />
+              )}
             </nav>
           </div>
         </div>

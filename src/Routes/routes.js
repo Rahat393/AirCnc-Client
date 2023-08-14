@@ -14,6 +14,10 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Welcome from "../Pages/Dashboard/Welcome";
 import MyBookings from "../Pages/Dashboard/MyBookings";
 import BecomeHost from "../Pages/Dashboard/BecomeHost";
+import AllUsers from "../Pages/Dashboard/AllUsers";
+import AllBookings from "../Pages/Dashboard/AllBookings";
+import AddHome from "../Pages/AddHome";
+import ManageHome from "../Pages/Dashboard/ManageHome";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +42,10 @@ const router = createBrowserRouter([
         element: <CommingSoon />,
       },
       {
-        path: "/service-details",
+        path: "/service-details/:id",
         element: <Details />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/homes/${params.id}`),
       },
       {
         path: "/search-result",
@@ -80,6 +86,38 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BecomeHost />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-users",
+        element: (
+          <PrivateRoute>
+            <AllUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "all-bookings",
+        element: (
+          <PrivateRoute>
+            <AllBookings />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-home",
+        element: (
+          <PrivateRoute>
+            <AddHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-home",
+        element: (
+          <PrivateRoute>
+            <ManageHome />
           </PrivateRoute>
         ),
       },
