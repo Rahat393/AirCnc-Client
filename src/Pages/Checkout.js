@@ -7,36 +7,29 @@ import { AuthContext } from "../contexts/AuthProvider";
 import WhosComing from "../Components/WhosComing";
 import ReviewHouse from "../Components/ReviewHouse";
 import { saveBooking } from "../api/Bookings";
+import { useLocation } from "react-router-dom";
+import CheckoutCart from "../Components/CheckoutCart";
 
 const Checkout = () => {
+  // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
   const { user } = useContext(AuthContext);
-  const homeData = {
-    _id: "60ehjhedhjdj3434",
-    location: "Dhaka, Bangladesh",
-    title: "Huge Apartment with 4 bedrooms",
-    image: "https://i.ibb.co/YPXktqs/Home1.jpg",
-    from: "17/11/2022",
-    to: "21/11/2022",
-    host: {
-      name: "John Doe",
-      image: "https://i.ibb.co/6JM5VJF/photo-1633332755192-727a05c4013d.jpg",
-      email: "johndoe@gmail.com",
-    },
-    price: 98,
-    total_guest: 4,
-    bedrooms: 2,
-    bathrooms: 2,
-    ratings: 4.8,
-    reviews: 64,
-  };
+  const { state: checkoutData } = useLocation();
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [bookingData, setBookingData] = useState({
-    homeId: homeData._id,
-    hostEmail: homeData?.host?.email,
-    message: "",
-    totalPrice: parseFloat(homeData.price) + 31,
+    home: {
+      id: checkoutData?.homeData?._id,
+      image: checkoutData?.homeData?.image,
+      title: checkoutData?.homeData?.title,
+      location: checkoutData?.homeData?.location,
+      from: checkoutData?.homeData?.from,
+      to: checkoutData?.homeData?.to,
+    },
+    hostEmail: checkoutData?.homeData?.host?.email,
+    comment: "",
+    price: parseFloat(checkoutData?.totalPrice),
     guestEmail: user?.email,
   });
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleBooking = () => {
     console.log(bookingData);
@@ -124,19 +117,23 @@ const Checkout = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <ReviewHouse setSelectedIndex={setSelectedIndex} />
-            </Tab.Panel>
-            <Tab.Panel>
-              {/* WhosComing Comp */}
-              <WhosComing
+              <ReviewHouse
                 setSelectedIndex={setSelectedIndex}
-                host={homeData?.host}
-                bookingData={bookingData}
-                setBookingData={setBookingData}
+                homeData={{
+                  ...checkoutData?.homeData,
+                  totalNights: checkoutData?.totalNights,
+                }}
               />
             </Tab.Panel>
             <Tab.Panel>
-              {/* Payment Comp */}
+              <WhosComing
+                setSelectedIndex={setSelectedIndex}
+                bookingData={bookingData}
+                setBookingData={setBookingData}
+                host={checkoutData?.homeData?.host}
+              />
+            </Tab.Panel>
+            <Tab.Panel>
               <Payment handleBooking={handleBooking} />
             </Tab.Panel>
           </Tab.Panels>
@@ -144,7 +141,12 @@ const Checkout = () => {
       </div>
 
       {/* Cart */}
-      {/* <CheckoutCart /> */}
+      <CheckoutCart
+        homeData={{
+          ...checkoutData?.homeData,
+          totalNights: checkoutData?.totalNights,
+        }}
+      />
     </div>
   );
 };

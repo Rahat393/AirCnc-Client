@@ -27,3 +27,17 @@ export const getAllBooking = async () => {
   const data = await response.json();
   return data;
 };
+
+// Delete booking
+export const deleteBooking = async (id) => {
+  const response = await fetch(`http://localhost:5000/bookings/${id}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
+    },
+  });
+
+  const data = await response.json();
+  return data;
+};

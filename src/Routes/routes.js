@@ -18,6 +18,7 @@ import AllUsers from "../Pages/Dashboard/AllUsers";
 import AllBookings from "../Pages/Dashboard/AllBookings";
 import AddHome from "../Pages/AddHome";
 import ManageHome from "../Pages/Dashboard/ManageHome";
+import AllHome from "../Pages/AllHome";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/all-homes",
+        element: <AllHome />,
       },
       {
         path: "/comming-soon",
