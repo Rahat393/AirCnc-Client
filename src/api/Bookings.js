@@ -41,3 +41,19 @@ export const deleteBooking = async (id) => {
   const data = await response.json();
   return data;
 };
+
+// Create Payment Intent
+
+export const getPaymentIntent = async (price) => {
+  const response = await fetch(`http://localhost:5000/create-payment-intent`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `bearer ${localStorage.getItem("aircnc-token")}`,
+    },
+    body: JSON.stringify({ price }),
+  });
+
+  const data = await response.json();
+  return data;
+};

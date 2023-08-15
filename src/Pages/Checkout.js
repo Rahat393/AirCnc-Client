@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useState } from "react";
 import { Tab } from "@headlessui/react";
-
 import toast from "react-hot-toast";
 import Payment from "../Components/Payment";
 import { AuthContext } from "../contexts/AuthProvider";
@@ -9,9 +8,13 @@ import ReviewHouse from "../Components/ReviewHouse";
 import { saveBooking } from "../api/Bookings";
 import { useLocation } from "react-router-dom";
 import CheckoutCart from "../Components/CheckoutCart";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../Components/Form/CheckoutForm";
 
 const Checkout = () => {
-  // const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+  const stripePromise = loadStripe(`${process.env.REACT_STRIPE_PUBLIC_KEY}`);
+  // console.log(stripePromise);
   const { user } = useContext(AuthContext);
   const { state: checkoutData } = useLocation();
 
@@ -134,7 +137,10 @@ const Checkout = () => {
               />
             </Tab.Panel>
             <Tab.Panel>
-              <Payment handleBooking={handleBooking} />
+              <Elements stripe={stripePromise}>
+                <CheckoutForm bookingData={bookingData} />
+              </Elements>
+              {/* <Payment handleBooking={handleBooking} /> */}
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
