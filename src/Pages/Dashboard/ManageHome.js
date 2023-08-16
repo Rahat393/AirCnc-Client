@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../contexts/AuthProvider";
+import { getHomes } from "../../api/services";
+import HomeDataRow from "../../Components/HomeDataRow";
 
 const ManageHome = () => {
+  const { user } = useContext(AuthContext);
+
+  const [homes, setHomes] = useState([]);
+  const fetchHomes = () => getHomes(user?.email).then((data) => setHomes(data));
+
+  useEffect(() => {
+    fetchHomes();
+  }, [user?.email]);
   return (
     <div className="container mx-auto px-4 sm:px-8">
       <div className="py-8">
@@ -54,14 +65,14 @@ const ManageHome = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* {homes &&
-                  homes.map(home => (
+                {homes &&
+                  homes.map((home) => (
                     <HomeDataRow
                       key={home?._id}
                       home={home}
                       fetchHomes={fetchHomes}
                     />
-                  ))} */}
+                  ))}
               </tbody>
             </table>
           </div>

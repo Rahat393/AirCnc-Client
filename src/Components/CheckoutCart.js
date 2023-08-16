@@ -30,11 +30,11 @@ const CheckoutCart = ({ homeData }) => {
 
       <p>Dates</p>
       <div className="flex justify-between items-center p-2 border mt-1 mb-2">
-        <div>{format(new Date(homeData?.from), "P")}</div>
+        {/* <div>{format(new Date(homeData?.from), "P")}</div> */}
         <div>
           <ArrowRightIcon className="h5 w-5" />
         </div>
-        <div>{format(new Date(homeData?.to), "P")}</div>
+        {/* <div>{format(new Date(homeData?.to), "P")}</div> */}
       </div>
 
       <div className="flex border-t border-gray-200 py-2">

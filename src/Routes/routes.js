@@ -19,6 +19,8 @@ import AllBookings from "../Pages/Dashboard/AllBookings";
 import AddHome from "../Pages/AddHome";
 import ManageHome from "../Pages/Dashboard/ManageHome";
 import AllHome from "../Pages/AllHome";
+import AdminRoute from "./AdminRoute";
+import HostRoute from "./HostRoute";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
         path: "/service-details/:id",
         element: <Details />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/homes/${params.id}`),
+          fetch(`http://localhost:5000/home/${params.id}`),
       },
       {
         path: "/search-result",
@@ -97,33 +99,33 @@ const router = createBrowserRouter([
       {
         path: "all-users",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AllUsers />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "all-bookings",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AllBookings />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "add-home",
         element: (
-          <PrivateRoute>
+          <HostRoute>
             <AddHome />
-          </PrivateRoute>
+          </HostRoute>
         ),
       },
       {
         path: "manage-home",
         element: (
-          <PrivateRoute>
+          <HostRoute>
             <ManageHome />
-          </PrivateRoute>
+          </HostRoute>
         ),
       },
     ],

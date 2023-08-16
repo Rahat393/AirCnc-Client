@@ -53,7 +53,7 @@ const AddHome = () => {
           console.log(homeData);
           setLoading(false);
           toast.success("Added Home");
-          navigate("Dashboard/manage-homes");
+          navigate("/Dashboard/manage-home");
         });
       })
       .catch((err) => {

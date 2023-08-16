@@ -9,6 +9,7 @@ import {
 import { format } from "date-fns";
 
 const ReviewHouse = ({ setSelectedIndex, homeData }) => {
+  // console.log("data", homeData);
   return (
     <>
       <h1 className="text-gray-900 title-font text-4xl font-medium">

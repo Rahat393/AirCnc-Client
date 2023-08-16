@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { getAllBooking, getBooking } from "../../api/Bookings";
 import Spinner from "../../Components/Spinner/Spinner";
 import TableRow from "../../Components/TableRow";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../Components/Button/PrimaryButton";
+import { getBooking } from "../../api/Bookings";
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext);
@@ -12,7 +12,7 @@ const MyBookings = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchBookings = () =>
-    getAllBooking(user?.email).then((data) => setBookings(data));
+    getBooking(user?.email).then((data) => setBookings(data));
 
   useEffect(() => {
     fetchBookings();

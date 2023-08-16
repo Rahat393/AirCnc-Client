@@ -16,19 +16,30 @@ export const hostRequest = async (hostData) => {
 
 // Get user role
 export const getRole = async (email) => {
-  const url = `http://localhost:5000/user/${email}`;
-
-  const response = await fetch(url);
-
+  const response = await fetch(`http://localhost:5000/user/${email}`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
+    },
+  });
   const user = await response.json();
-
-  return user?.role;
+  return user.role;
 };
 
 // get all users
 export const getAllUsers = async () => {
-  const response = fetch("http://localhost:5000/users");
-  const users = (await response).json();
+  const response = await fetch(`http://localhost:5000/users`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
+    },
+  });
+  console.log("test");
+
+  const users = await response.json();
+
   return users;
 };
 

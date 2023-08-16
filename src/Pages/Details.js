@@ -1,24 +1,11 @@
-import {
-  StarIcon,
-  ArrowRightIcon,
-  ChevronDownIcon,
-  HomeIcon,
-  CheckBadgeIcon,
-  BeakerIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
 import React from "react";
-import PrimaryButton from "../Components/Button/PrimaryButton";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import HomeDetails from "../Components/Details/HomeDetails";
 import DetailsCard from "../Components/Details/DetailsCard";
 
 const Details = () => {
-  let totalNights = 0;
-  let sub_total = 0;
-  let total = 0;
-
   const homeData = useLoaderData();
+  console.log(homeData);
 
   return (
     <div>

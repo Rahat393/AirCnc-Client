@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 import { Tab } from "@headlessui/react";
 import toast from "react-hot-toast";
-import Payment from "../Components/Payment";
+
 import { AuthContext } from "../contexts/AuthProvider";
 import WhosComing from "../Components/WhosComing";
 import ReviewHouse from "../Components/ReviewHouse";
@@ -33,20 +33,6 @@ const Checkout = () => {
     price: parseFloat(checkoutData?.totalPrice),
     guestEmail: user?.email,
   });
-
-  const handleBooking = () => {
-    console.log(bookingData);
-
-    saveBooking(bookingData)
-      .then((data) => {
-        console.log(data);
-        toast.success("Booking Successful!");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err?.message);
-      });
-  };
 
   return (
     <div className="md:flex gap-5 items-start justify-between sm:mx-10 md:mx-20 px-4 lg:mx-40 py-4">

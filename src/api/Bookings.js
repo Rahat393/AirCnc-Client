@@ -21,11 +21,16 @@ export const getBooking = async (email) => {
 };
 
 // get all bookings for admin
-export const getAllBooking = async () => {
-  const url = "http://localhost:5000/bookings";
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+export const getAllBookings = async () => {
+  const response = await fetch(`http://localhost:5000/bookings`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
+    },
+  });
+  const bookings = await response.json();
+  return bookings;
 };
 
 // Delete booking
