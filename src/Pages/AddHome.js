@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 const AddHome = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState("");
+  const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
   const { user } = useContext(AuthContext);
   const [arrivalDate, setArrivalDate] = useState(new Date());
   const [departureDate, setDepartureDate] = useState(
@@ -61,6 +63,12 @@ const AddHome = () => {
         console.log(err);
       });
   };
+
+  const handleImageChange = (image) => {
+    console.log(image);
+    setPreview(window.URL.createObjectURL(image));
+    setUploadButtonText(image.name);
+  };
   return (
     <>
       <h1 className="text-3xl font-bold text-gray-800 py-8 text-center">
@@ -73,6 +81,9 @@ const AddHome = () => {
         setArrivalDate={setArrivalDate}
         departureDate={departureDate}
         setDepartureDate={setDepartureDate}
+        handleImageChange={handleImageChange}
+        preview={preview}
+        uploadButtonText={uploadButtonText}
       />
     </>
   );

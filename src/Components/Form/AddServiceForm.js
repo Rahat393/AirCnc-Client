@@ -8,6 +8,9 @@ const AddServiceForm = ({
   setArrivalDate,
   departureDate,
   setDepartureDate,
+  handleImageChange,
+  preview,
+  uploadButtonText,
 }) => {
   return (
     <>
@@ -136,14 +139,19 @@ const AddServiceForm = ({
                 htmlFor="image"
                 className="p-3 text-center rounded-md cursor-pointer text-gray-500 font-bold border  border-green-600 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-400 hover:border-white hover:text-white"
               >
+                {uploadButtonText}
                 <input
                   type="file"
+                  onChange={(event) => handleImageChange(event.target.files[0])}
                   name="image"
                   id="image"
                   accept="image/*"
                   hidden
                 />
               </label>
+              {preview && (
+                <img src={preview} className="w-16 h-16" alt="preview_img" />
+              )}
             </div>
 
             <div className="space-y-1 text-sm">
