@@ -51,15 +51,13 @@ const TableRow = ({ booking, fetchBookings }) => {
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">
-          {format(new Date(booking?.home?.from), "PPP")}
-          {booking?.home?.from}
+          {format(new Date(booking?.home?.from), "PP")}
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">
           {" "}
-          {format(new Date(booking?.home?.to), "P")}
-          {booking?.home?.to}
+          {format(new Date(booking?.home?.to), "PP")}
         </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

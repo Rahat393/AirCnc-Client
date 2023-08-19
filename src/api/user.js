@@ -5,6 +5,7 @@ export const hostRequest = async (hostData) => {
     method: "PUT",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
     },
     body: JSON.stringify(hostData),
   });
@@ -49,6 +50,7 @@ export const makeHost = async (user) => {
     method: "PUT",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("aircnc-token")}`,
     },
     body: JSON.stringify({ ...user, role: "host" }),
   });

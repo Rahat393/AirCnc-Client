@@ -1,6 +1,8 @@
 import { CalendarIcon } from "@heroicons/react/20/solid";
 import React from "react";
 import DatePicker from "react-datepicker";
+import PrimaryButton from "../Button/PrimaryButton";
+import SmallSpinner from "../Spinner/SmallSpinner";
 
 const AddServiceForm = ({
   handleSubmit,
@@ -11,6 +13,7 @@ const AddServiceForm = ({
   handleImageChange,
   preview,
   uploadButtonText,
+  loading,
 }) => {
   return (
     <>
@@ -166,12 +169,16 @@ const AddServiceForm = ({
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              className="block w-full p-3 text-center font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-gradient-to-r from-emerald-500 to-lime-500 hover:bg-gray-200 hover:text-gray-700 focus:shadow-outline focus:outline-none"
-            >
-              Save & Continue
-            </button>
+            {
+              <div>
+                <PrimaryButton
+                  type="submit"
+                  classes="w-full px-8 py-3 font-semibold rounded-md bg-gray-900 hover:bg-gray-700 hover:text-white text-gray-100"
+                >
+                  {loading ? <SmallSpinner /> : "Save & Continue"}
+                </PrimaryButton>
+              </div>
+            }
           </form>
         </div>
       </div>

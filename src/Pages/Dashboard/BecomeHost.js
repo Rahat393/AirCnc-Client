@@ -8,6 +8,8 @@ const BecomeHost = () => {
   const { user } = useContext(AuthContext);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [preview, setPreview] = useState("");
+  const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
 
   useEffect(() => {
     setLoading(true);
@@ -34,6 +36,12 @@ const BecomeHost = () => {
       });
     });
   };
+
+  const handleImageChange = (image) => {
+    console.log(image);
+    setPreview(window.URL.createObjectURL(image));
+    setUploadButtonText(image.name);
+  };
   return (
     <>
       {role ? (
@@ -41,7 +49,16 @@ const BecomeHost = () => {
           Request Sent, wait for admin approval
         </div>
       ) : (
-        <>{<BecomeHostForm handleSubmit={handleSubmit} />}</>
+        <>
+          {
+            <BecomeHostForm
+              handleImageChange={handleImageChange}
+              preview={preview}
+              uploadButtonText={uploadButtonText}
+              handleSubmit={handleSubmit}
+            />
+          }
+        </>
       )}
     </>
   );

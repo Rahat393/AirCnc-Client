@@ -36,7 +36,7 @@ const Home = () => {
             <div className="flex justify-between px-4 mt-10">
               <p className="text-xl font-bold">Homes</p>
               <Link to="/all-homes">
-                <p>See All</p>
+                <p className="underline hover:text-green-500">See All</p>
               </Link>
             </div>
             <div className="container pb-8 pt-2 mx-auto">
@@ -51,8 +51,8 @@ const Home = () => {
           <div>
             <div className="flex justify-between px-4">
               <p className="text-xl font-bold">Experiences</p>
-              <Link to="/coming-soon">
-                <p>See All</p>
+              <Link to="/comming-soon">
+                <p className="underline hover:text-green-500">See All</p>
               </Link>
             </div>
             <div className="container pb-8 pt-2 mx-auto">

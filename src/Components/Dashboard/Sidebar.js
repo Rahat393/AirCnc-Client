@@ -23,8 +23,10 @@ const Sidebar = ({ role }) => {
       {/* Small Screen Navbar */}
       <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
         <div>
-          <div className="block cursor-pointer p-4 font-bold">
-            <Link to="/">AirCnC</Link>
+          <div className="block cursor-pointer p-4 font-bold  ">
+            <Link className="underline" to="/">
+              AirCnC
+            </Link>
           </div>
         </div>
 
@@ -44,7 +46,7 @@ const Sidebar = ({ role }) => {
         <div>
           {/* Branding & Profile Info */}
           <div>
-            <h2 className="text-3xl cursor-pointer font-semibold text-center text-gray-800 ">
+            <h2 className="text-3xl underline cursor-pointer font-semibold text-center text-gray-800 ">
               <Link to="/"> AirCnC</Link>
             </h2>
             <div className="flex flex-col items-center mt-6 -mx-2">
